@@ -1,17 +1,13 @@
-[gd_scene load_steps=8 format=4 uid="uid://dkfxuneejuwq5"]
+[gd_scene load_steps=7 format=4 uid="uid://dkfxuneejuwq5"]
 
 [ext_resource type="Script" path="res://scenes/managers/build_manager/build_manager.gd" id="1_dtewx"]
 [ext_resource type="Script" path="res://scenes/managers/tile_manager.gd" id="1_i48rj"]
-[ext_resource type="Script" path="res://scenes/managers/input_manager/input_manager.gd" id="1_k1r1f"]
 [ext_resource type="TileSet" uid="uid://bmswmhwi8xkom" path="res://scenes/tilesets/game_tileset.tres" id="1_vlpmh"]
 [ext_resource type="PackedScene" uid="uid://d3bcljnndaea3" path="res://scenes/player/player.tscn" id="2_0dhms"]
 [ext_resource type="Script" path="res://scenes/tilesets/shoppe_floor.gd" id="2_kh287"]
 [ext_resource type="PackedScene" uid="uid://ceqd7vle4rxvy" path="res://scenes/shoppe_furniture/table.tscn" id="6_lhdky"]
 
 [node name="TestShoppe" type="Node2D"]
-
-[node name="InputManager" type="Node2D" parent="."]
-script = ExtResource("1_k1r1f")
 
 [node name="BuildManager" type="Node2D" parent="."]
 script = ExtResource("1_dtewx")
@@ -44,7 +40,5 @@ position = Vector2(480, 252)
 
 [node name="Table" parent="." instance=ExtResource("6_lhdky")]
 
-[connection signal="action_pressed" from="InputManager" to="BuildManager" method="_on_input_manager_action_pressed"]
-[connection signal="undo_pressed" from="InputManager" to="BuildManager" method="_on_input_manager_undo_pressed"]
 [connection signal="layer_mouse_out" from="TileManager" to="BuildManager" method="_on_tile_manager_layer_mouse_out"]
 [connection signal="new_tile_hovered" from="TileManager" to="BuildManager" method="_on_tile_manager_new_tile_hovered"]

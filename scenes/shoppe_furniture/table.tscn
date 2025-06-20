@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://ceqd7vle4rxvy"]
+
+[ext_resource type="Texture2D" uid="uid://cxnhogshrlhms" path="res://assets/objects/basic_furniture.png" id="1_y2dt8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oyy8m"]
+atlas = ExtResource("1_y2dt8")
+region = Rect2(49, 49, 14, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u8tnt"]
+size = Vector2(11, 8)
+
+[node name="Table" type="StaticBody2D"]
+position = Vector2(277, 160)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_oyy8m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_u8tnt")
