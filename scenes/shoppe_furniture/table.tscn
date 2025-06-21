@@ -7,14 +7,13 @@ atlas = ExtResource("1_y2dt8")
 region = Rect2(49, 49, 14, 14)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u8tnt"]
-size = Vector2(11, 8)
+size = Vector2(14, 11)
 
 [node name="Table" type="StaticBody2D"]
-position = Vector2(277, 160)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_oyy8m")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -1)
+position = Vector2(0, -1.5)
 shape = SubResource("RectangleShape2D_u8tnt")
