@@ -3,4 +3,4 @@ extends Node
 
 var global_pos: Vector2
 var node2d: Node2D
-var is_full: bool = false
+var item: Node2D

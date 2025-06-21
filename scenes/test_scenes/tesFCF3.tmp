@@ -5,10 +5,10 @@
 [ext_resource type="Script" path="res://scenes/managers/input_manager/input_manager.gd" id="1_k1r1f"]
 [ext_resource type="TileSet" uid="uid://bmswmhwi8xkom" path="res://scenes/tilesets/game_tileset.tres" id="1_vlpmh"]
 [ext_resource type="PackedScene" uid="uid://d3bcljnndaea3" path="res://scenes/player/player.tscn" id="2_0dhms"]
-[ext_resource type="Script" path="res://scenes/managers/build_manager/furniture_handler.gd" id="3_eu557"]
-[ext_resource type="Script" path="res://scenes/managers/build_manager/item_handler.gd" id="5_2ka6q"]
+[ext_resource type="Script" path="res://scenes/managers/build_manager/furniture_manager.gd" id="3_eu557"]
+[ext_resource type="Script" path="res://scenes/managers/build_manager/item_manager.gd" id="5_2ka6q"]
 [ext_resource type="PackedScene" uid="uid://ceqd7vle4rxvy" path="res://scenes/shoppe_furniture/table.tscn" id="6_lhdky"]
-[ext_resource type="PackedScene" uid="uid://woaj16c2nqy5" path="res://scenes/shoppe_items/potion.tscn" id="8_8m1qq"]
+[ext_resource type="PackedScene" uid="uid://woaj16c2nqy5" path="res://scenes/shoppe_furniture/potion.tscn" id="8_8m1qq"]
 
 [node name="TestShoppe" type="Node2D"]
 
@@ -18,14 +18,12 @@ script = ExtResource("1_k1r1f")
 [node name="BuildManager" type="Node2D" parent="."]
 script = ExtResource("1_dtewx")
 
-[node name="FurnitureHandler" type="Node2D" parent="BuildManager"]
+[node name="FurnitureManager" type="Node2D" parent="BuildManager"]
 script = ExtResource("3_eu557")
 furniture_scene = ExtResource("6_lhdky")
 
-[node name="ItemHandler" type="Node2D" parent="BuildManager" node_paths=PackedStringArray("furniture_handler")]
+[node name="ItemManager" type="Node2D" parent="BuildManager"]
 script = ExtResource("5_2ka6q")
-item_scene = ExtResource("8_8m1qq")
-furniture_handler = NodePath("../FurnitureHandler")
 
 [node name="TileManager" type="Node2D" parent="." node_paths=PackedStringArray("layer")]
 script = ExtResource("1_i48rj")
@@ -51,6 +49,10 @@ tile_set = ExtResource("1_vlpmh")
 
 [node name="Player" parent="." instance=ExtResource("2_0dhms")]
 position = Vector2(480, 252)
+
+[node name="Table" parent="." instance=ExtResource("6_lhdky")]
+
+[node name="Potion" parent="." instance=ExtResource("8_8m1qq")]
 
 [connection signal="action_pressed" from="InputManager" to="BuildManager" method="_on_input_manager_action_pressed"]
 [connection signal="undo_pressed" from="InputManager" to="BuildManager" method="_on_input_manager_undo_pressed"]
