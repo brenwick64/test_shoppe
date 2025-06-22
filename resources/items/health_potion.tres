@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RPlaceable" load_steps=4 format=3 uid="uid://gtsksq7j2b13"]
+
+[ext_resource type="PackedScene" uid="uid://iska77fps4f4" path="res://scenes/ui/placeable_icons/health_potion_icon.tscn" id="1_1kgy8"]
+[ext_resource type="Script" path="res://scripts/resource_definitions/placeable.gd" id="1_30nrn"]
+[ext_resource type="PackedScene" uid="uid://woaj16c2nqy5" path="res://scenes/shoppe_items/potion.tscn" id="1_bfnxo"]
+
+[resource]
+script = ExtResource("1_30nrn")
+type = "ITEM"
+scene = ExtResource("1_bfnxo")
+icon_scene = ExtResource("1_1kgy8")

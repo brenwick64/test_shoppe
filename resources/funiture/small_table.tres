@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RPlaceable" load_steps=4 format=3 uid="uid://d35f3f2dk41nk"]
+
+[ext_resource type="PackedScene" uid="uid://dofufa6w367pp" path="res://scenes/ui/placeable_icons/small_table_icon.tscn" id="1_2pyvy"]
+[ext_resource type="PackedScene" uid="uid://ceqd7vle4rxvy" path="res://scenes/shoppe_furniture/table.tscn" id="2_mqdwu"]
+[ext_resource type="Script" path="res://scripts/resource_definitions/placeable.gd" id="3_af52c"]
+
+[resource]
+script = ExtResource("3_af52c")
+type = "FURNITURE"
+scene = ExtResource("2_mqdwu")
+icon_scene = ExtResource("1_2pyvy")

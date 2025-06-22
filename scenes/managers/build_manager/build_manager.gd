@@ -4,10 +4,10 @@ extends Node2D
 @onready var item_handler: ItemManager = $ItemHandler
 
 @onready var build_handlers: Dictionary = {
-	"furniture" : furniture_handler,
-	"item" : item_handler
+	"FURNITURE" : furniture_handler,
+	"ITEM" : item_handler
 }
-@onready var current_handler: String = "item"
+@onready var current_handler: String = "ITEM"
 
 func _get_active_handler() -> BuildHandler:
 	return build_handlers.get(current_handler, null)
@@ -33,3 +33,9 @@ func _on_tile_manager_layer_mouse_out() -> void:
 	var handler: BuildHandler = _get_active_handler()
 	if not handler: return
 	handler.handle_tile_mouseout()
+
+func _on_inventory_placeable_selected(placeable: RPlaceable) -> void:
+	if current_handler != placeable.type:
+		var handler: BuildHandler = _get_active_handler()
+		handler.reset()
+	current_handler = placeable.type

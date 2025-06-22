@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://cgqw5tbs3em2v"]
+
+[ext_resource type="Theme" uid="uid://121csm5tlgrw" path="res://scenes/ui/main_theme.tres" id="1_noijp"]
+
+[node name="ItemBtn" type="Button"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1144.0
+offset_bottom = -638.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_noijp")
+theme_type_variation = &"ItemBtn"

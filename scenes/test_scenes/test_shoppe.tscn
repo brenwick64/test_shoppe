@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://dkfxuneejuwq5"]
+[gd_scene load_steps=11 format=4 uid="uid://dkfxuneejuwq5"]
 
 [ext_resource type="Script" path="res://scenes/managers/build_manager/build_manager.gd" id="1_dtewx"]
 [ext_resource type="Script" path="res://scenes/managers/tile_manager.gd" id="1_i48rj"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://scenes/managers/build_manager/item_handler.gd" id="5_2ka6q"]
 [ext_resource type="PackedScene" uid="uid://ceqd7vle4rxvy" path="res://scenes/shoppe_furniture/table.tscn" id="6_lhdky"]
 [ext_resource type="PackedScene" uid="uid://woaj16c2nqy5" path="res://scenes/shoppe_items/potion.tscn" id="8_8m1qq"]
+[ext_resource type="PackedScene" uid="uid://dmti7sm6t0fw" path="res://scenes/ui/inventory.tscn" id="10_op6gm"]
 
 [node name="TestShoppe" type="Node2D"]
 
@@ -52,7 +53,26 @@ tile_set = ExtResource("1_vlpmh")
 [node name="Player" parent="." instance=ExtResource("2_0dhms")]
 position = Vector2(480, 252)
 
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Inventory" parent="UI" instance=ExtResource("10_op6gm")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -400.0
+offset_top = -118.0
+offset_right = 400.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[connection signal="action_bar_pressed" from="InputManager" to="UI/Inventory" method="_on_input_manager_action_bar_pressed"]
 [connection signal="action_pressed" from="InputManager" to="BuildManager" method="_on_input_manager_action_pressed"]
 [connection signal="undo_pressed" from="InputManager" to="BuildManager" method="_on_input_manager_undo_pressed"]
 [connection signal="layer_mouse_out" from="TileManager" to="BuildManager" method="_on_tile_manager_layer_mouse_out"]
 [connection signal="new_tile_hovered" from="TileManager" to="BuildManager" method="_on_tile_manager_new_tile_hovered"]
+[connection signal="placeable_selected" from="UI/Inventory" to="BuildManager" method="_on_inventory_placeable_selected"]

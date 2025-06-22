@@ -12,3 +12,6 @@ func handle_action_pressed() -> void:
 
 func handle_undo_pressed() -> void:
 	pass
+
+func reset() -> void:
+	pass

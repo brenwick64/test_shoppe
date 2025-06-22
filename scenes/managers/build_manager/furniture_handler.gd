@@ -90,3 +90,6 @@ func handle_action_pressed() -> void:
 
 func handle_undo_pressed() -> void:
 	_remove_furniture()
+	
+func reset() -> void:
+	_remove_hover_node()
