@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 
 signal action_pressed(event: InputEvent)
 signal undo_pressed(event: InputEvent)

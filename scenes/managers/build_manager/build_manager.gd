@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 
 @onready var furniture_handler: FurnitureManager = $FurnitureHandler
 @onready var item_handler: ItemManager = $ItemHandler
@@ -13,12 +13,12 @@ func _get_active_handler() -> BuildHandler:
 	return build_handlers.get(current_handler, null)
 
 # user input signals
-func _on_input_manager_action_pressed(event: InputEvent) -> void:
+func _on_input_manager_action_pressed(_event: InputEvent) -> void:
 	var handler: BuildHandler = _get_active_handler()
 	if not handler: return
 	handler.handle_action_pressed()
 
-func _on_input_manager_undo_pressed(event: InputEvent) -> void:
+func _on_input_manager_undo_pressed(_event: InputEvent) -> void:
 	var handler: BuildHandler = _get_active_handler()
 	if not handler: return
 	handler.handle_undo_pressed()

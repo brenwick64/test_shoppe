@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://b0x0a433q5u7l"]
+
+[ext_resource type="Resource" uid="uid://bt6j6xql3whpr" path="res://resources/items/health_potion.tres" id="1_js6vq"]
+[ext_resource type="Script" path="res://scripts/classes/InventoryItem.gd" id="1_o0ncx"]
+
+[resource]
+script = ExtResource("1_o0ncx")
+item = ExtResource("1_js6vq")
+count = 2

@@ -1,16 +1,22 @@
 extends PanelContainer
 
-signal placeable_selected(placeable: RPlaceable)
+signal item_selected(item: RItem)
 
-@onready var item_btn: Button = $MarginContainer/Panel/ItemBtn
-@onready var margin_container: MarginContainer = $MarginContainer
-@onready var key_label: Label = $MarginContainer/Panel/KeyLabel
-@onready var circle_panel: Panel = $CirclePanel
+@export var item_btn: Button
+@export var key_label: Label
+@export var circle_panel: Panel
 
 @export var index: int
-@export var placeable: RPlaceable
+@export var item: RItem
 @export var item_count: int = 0
 
+func _ready() -> void:
+	item_btn.pressed.connect(on_btn_pressed)
+	key_label.text = str(index)
+	if item: update_ui()
+	else: _hide_ui()
+
+# methods
 func _hide_ui() -> void:
 	item_btn.visible = false
 	circle_panel.visible = false
@@ -19,26 +25,17 @@ func _show_ui() -> void:
 	item_btn.visible = true
 	circle_panel.visible = true
 
-func _update_ui() -> void:
-	var icon: TextureRect = placeable.icon_scene.instantiate()
-	item_btn.pressed.connect(on_btn_pressed)
-	item_btn.add_child(icon)
-	if item_count == 0:
-		item_btn.disabled = true
-		item_btn.mouse_filter = Control.MOUSE_FILTER_IGNORE 
-		item_btn.focus_mode = Control.FOCUS_NONE
-	else:
-		item_btn.disabled = false
-		item_btn.mouse_filter = Control.MOUSE_FILTER_STOP 
-		item_btn.focus_mode = Control.FOCUS_ALL
+func update_ui() -> void:
+	var has_item_img: bool = item_btn.get_child_count() > 0
+	if not has_item_img:
+		var icon: TextureRect = item.icon_scene.instantiate()
+		item_btn.add_child(icon)
 	
-func _ready() -> void:
-	key_label.text = str(index)
-	if placeable: _update_ui()
-	else: _hide_ui()
+	var item_count_label: Label = circle_panel.get_node_or_null("ItemCount")
+	item_count_label.text = str(item_count)
 
-# methods
 func on_btn_pressed() -> void:
-	if not placeable: return
+	if not item: return
 	item_btn.grab_focus()
-	placeable_selected.emit(placeable)
+	item_selected.emit(item)
+	item_btn.focus_mode = Control.FOCUS_ALL

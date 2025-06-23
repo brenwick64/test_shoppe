@@ -1,6 +1,6 @@
 extends Node
 
-func handle_animation(sprite:AnimatedSprite2D, movement_vector:Vector2):
+func handle_animation(sprite:AnimatedSprite2D, _movement_vector:Vector2):
 	if Input.is_action_pressed("move_up"):
 		sprite.play("walk_up")
 		return "up"

@@ -4,14 +4,13 @@
 [ext_resource type="PackedScene" uid="uid://cjta4w5qb0i0m" path="res://scenes/ui/item_container.tscn" id="2_g80of"]
 [ext_resource type="Script" path="res://scenes/ui/inventory.gd" id="2_xfeyc"]
 
-[node name="Inventory" type="Panel" node_paths=PackedStringArray("item_container_list")]
+[node name="Inventory" type="Panel"]
 custom_minimum_size = Vector2(800, 100)
 offset_right = 800.0
 offset_bottom = 100.0
 theme = ExtResource("1_erg77")
 theme_type_variation = &"MainPanel"
 script = ExtResource("2_xfeyc")
-item_container_list = NodePath("HBoxContainer")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1

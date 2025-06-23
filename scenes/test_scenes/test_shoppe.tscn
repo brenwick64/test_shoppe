@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://dkfxuneejuwq5"]
+[gd_scene load_steps=14 format=4 uid="uid://dkfxuneejuwq5"]
 
 [ext_resource type="Script" path="res://scenes/managers/build_manager/build_manager.gd" id="1_dtewx"]
 [ext_resource type="Script" path="res://scenes/managers/tile_manager.gd" id="1_i48rj"]
@@ -9,28 +9,37 @@
 [ext_resource type="Script" path="res://scenes/managers/build_manager/item_handler.gd" id="5_2ka6q"]
 [ext_resource type="PackedScene" uid="uid://ceqd7vle4rxvy" path="res://scenes/shoppe_furniture/table.tscn" id="6_lhdky"]
 [ext_resource type="PackedScene" uid="uid://woaj16c2nqy5" path="res://scenes/shoppe_items/potion.tscn" id="8_8m1qq"]
+[ext_resource type="Script" path="res://scenes/managers/inventory_manager/inventory_manager.gd" id="8_tr68y"]
+[ext_resource type="Script" path="res://scripts/classes/InventoryItem.gd" id="9_etf3g"]
+[ext_resource type="Resource" uid="uid://b0x0a433q5u7l" path="res://resources/inventory_items/health_potions.tres" id="10_dj5wo"]
 [ext_resource type="PackedScene" uid="uid://dmti7sm6t0fw" path="res://scenes/ui/inventory.tscn" id="10_op6gm"]
 
 [node name="TestShoppe" type="Node2D"]
 
-[node name="InputManager" type="Node2D" parent="."]
+[node name="Managers" type="Node" parent="."]
+
+[node name="InputManager" type="Node" parent="Managers"]
 script = ExtResource("1_k1r1f")
 
-[node name="BuildManager" type="Node2D" parent="."]
+[node name="BuildManager" type="Node" parent="Managers"]
 script = ExtResource("1_dtewx")
 
-[node name="FurnitureHandler" type="Node2D" parent="BuildManager"]
+[node name="FurnitureHandler" type="Node" parent="Managers/BuildManager"]
 script = ExtResource("3_eu557")
 furniture_scene = ExtResource("6_lhdky")
 
-[node name="ItemHandler" type="Node2D" parent="BuildManager" node_paths=PackedStringArray("furniture_handler")]
+[node name="ItemHandler" type="Node" parent="Managers/BuildManager" node_paths=PackedStringArray("furniture_handler")]
 script = ExtResource("5_2ka6q")
 item_scene = ExtResource("8_8m1qq")
 furniture_handler = NodePath("../FurnitureHandler")
 
-[node name="TileManager" type="Node2D" parent="." node_paths=PackedStringArray("layer")]
+[node name="TileManager" type="Node" parent="Managers" node_paths=PackedStringArray("layer")]
 script = ExtResource("1_i48rj")
-layer = NodePath("../TileMap/ShoppeFloor")
+layer = NodePath("../../TileMap/ShoppeFloor")
+
+[node name="InventoryManager" type="Node" parent="Managers" groups=["Inventory"]]
+script = ExtResource("8_tr68y")
+inv_items = Array[ExtResource("9_etf3g")]([ExtResource("10_dj5wo")])
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(506, 296)
@@ -70,9 +79,10 @@ grow_vertical = 0
 size_flags_horizontal = 4
 size_flags_vertical = 8
 
-[connection signal="action_bar_pressed" from="InputManager" to="UI/Inventory" method="_on_input_manager_action_bar_pressed"]
-[connection signal="action_pressed" from="InputManager" to="BuildManager" method="_on_input_manager_action_pressed"]
-[connection signal="undo_pressed" from="InputManager" to="BuildManager" method="_on_input_manager_undo_pressed"]
-[connection signal="layer_mouse_out" from="TileManager" to="BuildManager" method="_on_tile_manager_layer_mouse_out"]
-[connection signal="new_tile_hovered" from="TileManager" to="BuildManager" method="_on_tile_manager_new_tile_hovered"]
-[connection signal="placeable_selected" from="UI/Inventory" to="BuildManager" method="_on_inventory_placeable_selected"]
+[connection signal="action_bar_pressed" from="Managers/InputManager" to="UI/Inventory" method="_on_input_manager_action_bar_pressed"]
+[connection signal="action_pressed" from="Managers/InputManager" to="Managers/BuildManager" method="_on_input_manager_action_pressed"]
+[connection signal="undo_pressed" from="Managers/InputManager" to="Managers/BuildManager" method="_on_input_manager_undo_pressed"]
+[connection signal="layer_mouse_out" from="Managers/TileManager" to="Managers/BuildManager" method="_on_tile_manager_layer_mouse_out"]
+[connection signal="new_tile_hovered" from="Managers/TileManager" to="Managers/BuildManager" method="_on_tile_manager_new_tile_hovered"]
+[connection signal="inventory_updated" from="Managers/InventoryManager" to="UI/Inventory" method="_on_inventory_manager_inventory_updated"]
+[connection signal="item_selected" from="UI/Inventory" to="Managers/InventoryManager" method="_on_inventory_item_selected"]

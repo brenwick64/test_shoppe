@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 
 signal new_tile_hovered(tile_global_pos: Vector2)
 signal layer_mouse_out
@@ -15,7 +15,7 @@ func _get_hovered_tile_coords() -> Vector2i:
 func _get_tile_center_global_pos(tile_coords: Vector2i) -> Vector2:
 	return layer.to_global(layer.map_to_local(tile_coords))
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var tile_coords: Vector2i = _get_hovered_tile_coords()
 	var tile_data: TileData = layer.get_cell_tile_data(tile_coords)
 	if not tile_data: # wrong tile layer 

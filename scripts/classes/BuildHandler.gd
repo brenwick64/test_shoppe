@@ -1,5 +1,5 @@
 class_name BuildHandler
-extends Node2D
+extends Node
 
 func handle_new_tile_hovered(tile_global_pos: Vector2) -> void:
 	pass
