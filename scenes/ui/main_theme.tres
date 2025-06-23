@@ -1,9 +1,27 @@
-[gd_resource type="Theme" load_steps=18 format=3 uid="uid://121csm5tlgrw"]
+[gd_resource type="Theme" load_steps=22 format=3 uid="uid://121csm5tlgrw"]
 
 [ext_resource type="Texture2D" uid="uid://3v6ujgwqhjty" path="res://assets/ui/sprite_sheets/Sprite sheet for Basic Pack.png" id="1_v5do2"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_8xsqs"]
+atlas = ExtResource("1_v5do2")
+region = Rect2(519, 72, 18, 17)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_darvm"]
+texture = SubResource("AtlasTexture_8xsqs")
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fcigg"]
 bg_color = Color(0.207843, 0.207843, 0.207843, 0.611765)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7js1d"]
+atlas = ExtResource("1_v5do2")
+region = Rect2(107, 11, 26, 26)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1jfjr"]
+texture = SubResource("AtlasTexture_7js1d")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_us75x"]
 load_path = "res://.godot/imported/Sprite sheet for Basic Pack.png-0224154290fe97551b300ff7c700c261.ctex"
@@ -81,9 +99,12 @@ texture_margin_right = 4.0
 texture_margin_bottom = 4.0
 
 [resource]
+CirclePanel/base_type = &"Panel"
+CirclePanel/styles/panel = SubResource("StyleBoxTexture_darvm")
 EmptyPanel/base_type = &"Panel"
 EmptyPanel/styles/panel = SubResource("StyleBoxFlat_fcigg")
 ItemBtn/base_type = &"Button"
+ItemBtn/styles/disabled = SubResource("StyleBoxTexture_1jfjr")
 ItemBtn/styles/focus = SubResource("StyleBoxTexture_7s7k7")
 ItemBtn/styles/hover = SubResource("StyleBoxTexture_dw25n")
 ItemBtn/styles/normal = SubResource("StyleBoxTexture_e1avw")

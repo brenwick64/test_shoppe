@@ -1,34 +1,63 @@
-[gd_scene load_steps=3 format=3 uid="uid://cjta4w5qb0i0m"]
+[gd_scene load_steps=5 format=3 uid="uid://cjta4w5qb0i0m"]
 
 [ext_resource type="Script" path="res://scenes/ui/item_container.gd" id="1_8roph"]
+[ext_resource type="Theme" uid="uid://121csm5tlgrw" path="res://scenes/ui/main_theme.tres" id="1_ckmqw"]
 [ext_resource type="PackedScene" uid="uid://cgqw5tbs3em2v" path="res://scenes/ui/item_btn.tscn" id="3_t3pju"]
 
-[node name="ItemContainer" type="MarginContainer"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5tb4v"]
+
+[node name="ItemContainer" type="PanelContainer"]
 custom_minimum_size = Vector2(100, 100)
 offset_right = 100.0
 offset_bottom = 100.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_5tb4v")
+script = ExtResource("1_8roph")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
-script = ExtResource("1_8roph")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="Panel" type="Panel" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="ItemBtn" parent="PanelContainer" instance=ExtResource("3_t3pju")]
+[node name="ItemBtn" parent="MarginContainer/Panel" instance=ExtResource("3_t3pju")]
 custom_minimum_size = Vector2(25, 25)
-layout_mode = 2
+layout_mode = 1
+offset_right = 0.0
+offset_bottom = 0.0
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="KeyLabel" type="Label" parent="MarginContainer/Panel"]
 layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="KeyLabel" type="Label" parent="PanelContainer/MarginContainer"]
-layout_mode = 2
+offset_left = 66.0
+offset_top = 53.0
+offset_right = 76.0
+offset_bottom = 76.0
 size_flags_horizontal = 8
 size_flags_vertical = 8
 text = "1"
+
+[node name="CirclePanel" type="Panel" parent="."]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme = ExtResource("1_ckmqw")
+theme_type_variation = &"CirclePanel"
+
+[node name="Label" type="Label" parent="CirclePanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.5
+offset_top = -12.5
+offset_right = 5.5
+offset_bottom = 10.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "0"
