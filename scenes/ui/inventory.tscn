@@ -25,7 +25,6 @@ theme_override_constants/separation = 0
 [node name="ItemContainer1" parent="HBoxContainer" instance=ExtResource("2_g80of")]
 layout_mode = 2
 index = 1
-item_count = 1
 
 [node name="ItemContainer2" parent="HBoxContainer" instance=ExtResource("2_g80of")]
 layout_mode = 2

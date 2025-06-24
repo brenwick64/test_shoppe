@@ -55,3 +55,11 @@ func _on_inventory_manager_inventory_updated(inv_items: Array[InventoryItem]) ->
 		var is_new_item: bool = item_containers.filter(func(container): return _matches_item_name(container, inv_item.item.item_name)).size() == 0
 		if is_new_item: _add_new_item_container(inv_item)
 		else: _update_item_container(inv_item)
+
+func _on_inventory_manager_item_depleted(item: RItem) -> void:
+	var item_containers: Array[Node] = item_container_list.get_children()
+	for container: PanelContainer in item_containers:
+		if not container.item: continue
+		if container.item.item_name == item.item_name:
+			container.item = null
+			container.hide_ui()

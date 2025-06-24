@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://u1pki2i0y6pq"]
+
+[ext_resource type="Script" path="res://scenes/pickups/pickup.gd" id="1_xg51d"]
+[ext_resource type="PackedScene" uid="uid://woaj16c2nqy5" path="res://scenes/shoppe_items/potion.tscn" id="2_2b6kg"]
+[ext_resource type="PackedScene" uid="uid://dxhljr7q0bwse" path="res://scenes/pickups/arc_move_on_spawn.tscn" id="2_g3d4y"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_22l2o"]
+radius = 5.0
+
+[node name="Pickup" type="Node2D"]
+script = ExtResource("1_xg51d")
+
+[node name="Behaviors" type="Node" parent="."]
+
+[node name="ArcMoveOnSpawn" parent="Behaviors" node_paths=PackedStringArray("pickup") instance=ExtResource("2_g3d4y")]
+pickup = NodePath("../..")
+
+[node name="PickupArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+shape = SubResource("CircleShape2D_22l2o")
+
+[node name="PickupDelay" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="Potion" parent="." instance=ExtResource("2_2b6kg")]
+
+[connection signal="arc_motion_finished" from="Behaviors/ArcMoveOnSpawn" to="." method="_on_arc_move_on_spawn_arc_motion_finished"]
+[connection signal="area_entered" from="PickupArea" to="." method="_on_pickup_area_area_entered"]

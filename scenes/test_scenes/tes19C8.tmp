@@ -30,9 +30,8 @@ item_handler = NodePath("ItemHandler")
 script = ExtResource("3_eu557")
 debug_furniture_scene = ExtResource("6_lhdky")
 
-[node name="ItemHandler" type="Node" parent="Managers/BuildManager" node_paths=PackedStringArray("inventory_manager", "furniture_handler")]
+[node name="ItemHandler" type="Node" parent="Managers/BuildManager" node_paths=PackedStringArray("furniture_handler")]
 script = ExtResource("5_2ka6q")
-inventory_manager = NodePath("../../InventoryManager")
 furniture_handler = NodePath("../FurnitureHandler")
 
 [node name="TileManager" type="Node" parent="Managers" node_paths=PackedStringArray("layer")]
@@ -81,15 +80,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 
 [node name="Pickup" parent="." instance=ExtResource("12_tmfbm")]
-position = Vector2(388, 138)
-item = ExtResource("13_ab7ff")
-
-[node name="Pickup2" parent="." instance=ExtResource("12_tmfbm")]
-position = Vector2(364, 140)
-item = ExtResource("13_ab7ff")
-
-[node name="Pickup3" parent="." instance=ExtResource("12_tmfbm")]
-position = Vector2(365, 165)
+position = Vector2(400, 251)
 item = ExtResource("13_ab7ff")
 
 [connection signal="action_bar_pressed" from="Managers/InputManager" to="UI/Inventory" method="_on_input_manager_action_bar_pressed"]
@@ -98,5 +89,4 @@ item = ExtResource("13_ab7ff")
 [connection signal="layer_mouse_out" from="Managers/TileManager" to="Managers/BuildManager" method="_on_tile_manager_layer_mouse_out"]
 [connection signal="new_tile_hovered" from="Managers/TileManager" to="Managers/BuildManager" method="_on_tile_manager_new_tile_hovered"]
 [connection signal="inventory_updated" from="Managers/InventoryManager" to="UI/Inventory" method="_on_inventory_manager_inventory_updated"]
-[connection signal="item_depleted" from="Managers/InventoryManager" to="UI/Inventory" method="_on_inventory_manager_item_depleted"]
 [connection signal="item_selected" from="UI/Inventory" to="Managers/BuildManager" method="_on_inventory_item_selected"]

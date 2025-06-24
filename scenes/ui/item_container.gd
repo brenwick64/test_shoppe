@@ -14,14 +14,14 @@ func _ready() -> void:
 	item_btn.pressed.connect(on_btn_pressed)
 	key_label.text = str(index)
 	if item: update_ui()
-	else: _hide_ui()
+	else: hide_ui()
 
 # methods
-func _hide_ui() -> void:
+func hide_ui() -> void:
 	item_btn.visible = false
 	circle_panel.visible = false
 	
-func _show_ui() -> void:
+func show_ui() -> void:
 	item_btn.visible = true
 	circle_panel.visible = true
 
@@ -33,6 +33,7 @@ func update_ui() -> void:
 	
 	var item_count_label: Label = circle_panel.get_node_or_null("ItemCount")
 	item_count_label.text = str(item_count)
+	show_ui()
 
 func on_btn_pressed() -> void:
 	if not item: return

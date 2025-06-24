@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://d3bcljnndaea3"]
+[gd_scene load_steps=27 format=3 uid="uid://d3bcljnndaea3"]
 
 [ext_resource type="Texture2D" uid="uid://7m4cjbgop0kk" path="res://assets/characters/basic_charakter_spritesheet.png" id="1_cd7k5"]
 [ext_resource type="Script" path="res://scenes/components/movement/movement_component.gd" id="1_wbjcb"]
@@ -167,6 +167,10 @@ animations = [{
 radius = 3.0
 height = 14.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kx2it"]
+radius = 6.0
+height = 18.0
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_x0f2a")
 
@@ -195,3 +199,10 @@ autoplay = "idle_down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_j27id")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CapsuleShape2D_kx2it")

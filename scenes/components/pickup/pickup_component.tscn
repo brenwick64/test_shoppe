@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://faver38eshto"]
+
+[ext_resource type="Script" path="res://scenes/components/pickup/pickup_component.gd" id="1_ei6yp"]
+
+[node name="PickupComponent" type="Node" node_paths=PackedStringArray("parent_scene")]
+script = ExtResource("1_ei6yp")
+parent_scene = NodePath("")
