@@ -1,10 +1,18 @@
 class_name ItemManager
 extends BuildHandler
 
+@export var test_item: RItem
 @export var inventory_manager: InventoryManager
 @export var furniture_handler: BuildHandler
 
 var hover_item: Node2D
+
+func _spawn_item_pickup(item: RItem, target_pos: Vector2) -> void:
+	var player: CharacterBody2D = get_tree().get_first_node_in_group("Player")
+	var item_pickup = item.pickup_scene.instantiate()
+	item_pickup.global_position = target_pos
+	item_pickup.target_pos = player.global_position
+	get_tree().root.add_child(item_pickup)
 
 func _place_hover_node(tile_global_pos: Vector2, item: RItem) -> void:
 	## delete old tile hover node
@@ -42,6 +50,7 @@ func _remove_item() -> void:
 	if not furniture or not furniture.item: return
 	furniture.item.queue_free()
 	furniture.item = null
+	_spawn_item_pickup(test_item, hover_item.global_position)
 
 # override methods
 func handle_new_tile_hovered(tile_global_pos: Vector2, item: RItem) -> void:

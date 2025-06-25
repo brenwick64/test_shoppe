@@ -32,7 +32,6 @@ debug_furniture_scene = ExtResource("6_lhdky")
 
 [node name="ItemHandler" type="Node" parent="Managers/BuildManager" node_paths=PackedStringArray("inventory_manager", "furniture_handler")]
 script = ExtResource("5_2ka6q")
-test_item = ExtResource("13_ab7ff")
 inventory_manager = NodePath("../../InventoryManager")
 furniture_handler = NodePath("../FurnitureHandler")
 
