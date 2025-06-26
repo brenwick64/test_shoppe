@@ -1,17 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://bkil345x72mdo"]
+[gd_scene load_steps=5 format=3 uid="uid://c08e7h0m25gjx"]
 
-[ext_resource type="Script" path="res://scenes/pickups/pickup.gd" id="1_xg51d"]
-[ext_resource type="PackedScene" uid="uid://dxhljr7q0bwse" path="res://scenes/pickups/arc_move_on_spawn.tscn" id="2_g3d4y"]
+[ext_resource type="Script" path="res://scenes/pickups/pickup.gd" id="1_5a2sn"]
+[ext_resource type="PackedScene" uid="uid://dxhljr7q0bwse" path="res://scenes/pickups/arc_move_on_spawn.tscn" id="2_mi8wh"]
+[ext_resource type="PackedScene" uid="uid://ceqd7vle4rxvy" path="res://scenes/shoppe_furniture/table.tscn" id="3_aede2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_22l2o"]
 radius = 5.0
 
-[node name="Pickup" type="Node2D"]
-script = ExtResource("1_xg51d")
+[node name="SmallTablePickup" type="Node2D"]
+script = ExtResource("1_5a2sn")
 
 [node name="Behaviors" type="Node" parent="."]
 
-[node name="ArcMoveOnSpawn" parent="Behaviors" node_paths=PackedStringArray("pickup") instance=ExtResource("2_g3d4y")]
+[node name="ArcMoveOnSpawn" parent="Behaviors" node_paths=PackedStringArray("pickup") instance=ExtResource("2_mi8wh")]
 pickup = NodePath("../..")
 
 [node name="PickupArea" type="Area2D" parent="."]
@@ -24,6 +25,8 @@ shape = SubResource("CircleShape2D_22l2o")
 [node name="PickupDelay" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="Table" parent="." instance=ExtResource("3_aede2")]
 
 [connection signal="arc_motion_finished" from="Behaviors/ArcMoveOnSpawn" to="." method="_on_arc_move_on_spawn_arc_motion_finished"]
 [connection signal="area_entered" from="PickupArea" to="." method="_on_pickup_area_area_entered"]

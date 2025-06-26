@@ -1,12 +1,11 @@
-[gd_scene load_steps=16 format=4 uid="uid://dkfxuneejuwq5"]
+[gd_scene load_steps=15 format=4 uid="uid://dkfxuneejuwq5"]
 
+[ext_resource type="Script" path="res://scenes/managers/build_manager/build_manager.gd" id="1_dtewx"]
 [ext_resource type="Script" path="res://scenes/managers/tile_manager.gd" id="1_i48rj"]
 [ext_resource type="Script" path="res://scenes/managers/input_manager/input_manager.gd" id="1_k1r1f"]
 [ext_resource type="TileSet" uid="uid://bmswmhwi8xkom" path="res://scenes/tilesets/game_tileset.tres" id="1_vlpmh"]
 [ext_resource type="PackedScene" uid="uid://d3bcljnndaea3" path="res://scenes/player/player.tscn" id="2_0dhms"]
 [ext_resource type="Script" path="res://scenes/managers/build_manager/furniture_handler.gd" id="3_eu557"]
-[ext_resource type="Script" path="res://scenes/managers/placement_manager/placement_manager.gd" id="3_jchkw"]
-[ext_resource type="PackedScene" uid="uid://bkil345x72mdo" path="res://scenes/pickups/pickup.tscn" id="5_0gpva"]
 [ext_resource type="Script" path="res://scenes/managers/build_manager/item_handler.gd" id="5_2ka6q"]
 [ext_resource type="Script" path="res://scenes/managers/inventory_manager/inventory_manager.gd" id="8_tr68y"]
 [ext_resource type="Script" path="res://scripts/classes/InventoryItem.gd" id="9_mayjv"]
@@ -20,23 +19,25 @@
 
 [node name="Managers" type="Node" parent="."]
 
-[node name="TileManager" type="Node" parent="Managers" node_paths=PackedStringArray("layer")]
-script = ExtResource("1_i48rj")
-layer = NodePath("../../TileMap/ShoppeFloor")
-
 [node name="InputManager" type="Node" parent="Managers"]
 script = ExtResource("1_k1r1f")
 
-[node name="PlacementManager" type="Node" parent="Managers"]
-script = ExtResource("3_jchkw")
+[node name="BuildManager" type="Node" parent="Managers" node_paths=PackedStringArray("inventory_manager", "furniture_handler", "item_handler")]
+script = ExtResource("1_dtewx")
+inventory_manager = NodePath("../InventoryManager")
+furniture_handler = NodePath("FurnitureHandler")
+item_handler = NodePath("ItemHandler")
 
-[node name="Furniture" type="Node" parent="Managers/PlacementManager" node_paths=PackedStringArray("inventory_manager")]
+[node name="FurnitureHandler" type="Node" parent="Managers/BuildManager" node_paths=PackedStringArray("inventory_manager")]
 script = ExtResource("3_eu557")
-pickup_scene = ExtResource("5_0gpva")
 inventory_manager = NodePath("../../InventoryManager")
 
-[node name="Item" type="Node" parent="Managers/PlacementManager"]
+[node name="ItemHandler" type="Node" parent="Managers/BuildManager"]
 script = ExtResource("5_2ka6q")
+
+[node name="TileManager" type="Node" parent="Managers" node_paths=PackedStringArray("layer")]
+script = ExtResource("1_i48rj")
+layer = NodePath("../../TileMap/ShoppeFloor")
 
 [node name="InventoryManager" type="Node" parent="Managers" groups=["Inventory"]]
 script = ExtResource("8_tr68y")
@@ -86,12 +87,11 @@ position = Vector2(413, 217)
 [node name="HealthPotionPickup" parent="." instance=ExtResource("14_x777u")]
 position = Vector2(399, 265)
 
-[connection signal="layer_mouse_out" from="Managers/TileManager" to="Managers/PlacementManager" method="_on_tile_manager_layer_mouse_out"]
-[connection signal="new_tile_hovered" from="Managers/TileManager" to="Managers/PlacementManager" method="_on_tile_manager_new_tile_hovered"]
 [connection signal="action_bar_pressed" from="Managers/InputManager" to="UI/Inventory" method="_on_input_manager_action_bar_pressed"]
-[connection signal="action_pressed" from="Managers/InputManager" to="Managers/PlacementManager" method="_on_input_manager_action_pressed"]
-[connection signal="undo_pressed" from="Managers/InputManager" to="Managers/PlacementManager" method="_on_input_manager_undo_pressed"]
+[connection signal="action_pressed" from="Managers/InputManager" to="Managers/BuildManager" method="_on_input_manager_action_pressed"]
+[connection signal="undo_pressed" from="Managers/InputManager" to="Managers/BuildManager" method="_on_input_manager_undo_pressed"]
+[connection signal="layer_mouse_out" from="Managers/TileManager" to="Managers/BuildManager" method="_on_tile_manager_layer_mouse_out"]
+[connection signal="new_tile_hovered" from="Managers/TileManager" to="Managers/BuildManager" method="_on_tile_manager_new_tile_hovered"]
 [connection signal="inventory_updated" from="Managers/InventoryManager" to="UI/Inventory" method="_on_inventory_manager_inventory_updated"]
-[connection signal="item_depleted" from="Managers/InventoryManager" to="Managers/PlacementManager" method="_on_inventory_manager_item_depleted"]
 [connection signal="item_depleted" from="Managers/InventoryManager" to="UI/Inventory" method="_on_inventory_manager_item_depleted"]
-[connection signal="item_selected" from="UI/Inventory" to="Managers/PlacementManager" method="_on_inventory_item_selected"]
+[connection signal="item_selected" from="UI/Inventory" to="Managers/BuildManager" method="_on_inventory_item_selected"]

@@ -1,79 +1,68 @@
-class_name FurnitureManager
-extends BuildHandler
+extends PlacementHandler
 
-@export var debug_furniture_scene: PackedScene
+@export var pickup_scene: PackedScene
+@export var inventory_manager: InventoryManager
 
 var furniture_map: Array[Furniture] = []
-var furniture_hover_node: Node2D
-
-# __DEBUG__
-var DEBUG_PLACEHOLDER_FURNITURE = [
-	Vector2i(408, 136),
-	Vector2i(424, 136),
-	Vector2i(440, 136)
-]
-func _debug_place_furniture(pos: Vector2) -> void:
-	# create furniture object
-	var furniture: Furniture = Furniture.new()
-	var table: StaticBody2D = debug_furniture_scene.instantiate()
-	table.global_position = pos
-	furniture.global_pos = pos
-	furniture.node2d = table
-	furniture_map.append(furniture)
-	# add furniture to scene
-	get_tree().root.add_child(table)
-	
-func _ready() -> void:
-	for pos: Vector2 in DEBUG_PLACEHOLDER_FURNITURE:
-		call_deferred("_debug_place_furniture", pos)
-# __DEBUG__
+var hover_node: Node2D
 
 # public methods
 func get_furniture_at_pos(global_pos: Vector2) -> Furniture:
-	for furniture in furniture_map:
-		if furniture.global_pos == global_pos:
+	for furniture: Furniture in furniture_map:
+		if global_pos in furniture.occupied_tiles:
 			return furniture
 	return null
 
 # helper functions
-func _place_hover_node(tile_global_pos: Vector2, item: RItem) -> void:
-	# delete old tile hover node
-	if furniture_hover_node:
-		furniture_hover_node.queue_free()
-		furniture_hover_node = null
+func _spawn_furniture_pickup(furniture: Furniture) -> void:
+	var player: CharacterBody2D = get_tree().get_first_node_in_group("Player")
+	var pickup: Pickup = pickup_scene.instantiate()
+	pickup.global_position = furniture.global_position
+	pickup.start_pos = furniture.global_position
+	pickup.end_pos = player.global_position
+	furniture.reparent(pickup)
+	get_tree().root.add_child(pickup)
 
-	var hover_node: Node2D = item.scene.instantiate()
-	var hover_node_sprite: Sprite2D = hover_node.get_node_or_null("Sprite2D")
+func _place_hover_node(tile_global_pos: Vector2, item: RItem) -> void:
+	# delete old hover node
+	if hover_node:
+		hover_node.queue_free()
+		hover_node = null
+
+	var new_hover_node: Node2D = item.scene.instantiate()
+	var hover_node_sprite: Sprite2D = new_hover_node.get_node_or_null("Sprite2D")
 	hover_node_sprite.modulate = Color(1, 1, 1, 0.5)
-	hover_node.global_position = tile_global_pos
-	furniture_hover_node = hover_node
+	new_hover_node.global_position = tile_global_pos
+	
 	# add hover node to scene
-	get_tree().root.add_child(hover_node)
+	get_tree().root.add_child(new_hover_node)
+	hover_node = new_hover_node
 
 func _remove_hover_node() -> void:
-	if not furniture_hover_node: return
-	furniture_hover_node.queue_free()
-	furniture_hover_node = null
+	if not hover_node: return
+	hover_node.queue_free()
+	hover_node = null
 
-func _place_furniture(item: RItem) -> void:
+func _place_furniture(item: RItem) -> RItem:
 	# validity checks
-	if not furniture_hover_node: return
-	if get_furniture_at_pos(furniture_hover_node.global_position): return
+	if not hover_node: return
+	if get_furniture_at_pos(hover_node.global_position): return
 	
-	var global_pos: Vector2 = furniture_hover_node.global_position
-	var furniture: Node2D = item.scene.instantiate()
-	furniture.global_position = global_pos
-	
-	furniture_map.append(item)
+	# create furniture node
+	var furniture: Furniture = item.scene.instantiate()
+	furniture.global_position = hover_node.global_position
+	furniture.occupied_tiles = [hover_node.global_position]
+	# TODO: calculate multi-tiles
+	furniture_map.append(furniture)
 	# add furniture to scene
 	get_tree().root.add_child(furniture)
+	return item
 
-func _remove_furniture() -> void:
-	if not furniture_hover_node: return
-	var furniture: Furniture = get_furniture_at_pos(furniture_hover_node.global_position)
-	if not furniture: return
-	furniture.node2d.queue_free()
-	furniture_map = furniture_map.filter(func(f): return f.global_pos != furniture.global_pos)
+func _remove_furniture(furniture: Furniture):
+	if not hover_node: return
+	furniture_map = furniture_map.filter(func(f): return furniture != f)
+	#furniture.queue_free()
+	_spawn_furniture_pickup(furniture)
 
 # override methods
 func handle_new_tile_hovered(tile_global_pos: Vector2, item: RItem) -> void:
@@ -82,11 +71,14 @@ func handle_new_tile_hovered(tile_global_pos: Vector2, item: RItem) -> void:
 func handle_tile_mouseout() -> void:
 	_remove_hover_node()
 
-func handle_action_pressed(item: RItem) -> void:
-	_place_furniture(item)
+func handle_action(item: RItem) -> void:
+	var placed_furniture: RItem = _place_furniture(item)
+	if placed_furniture:
+		inventory_manager.remove_item(placed_furniture)
 
-func handle_undo_pressed() -> void:
-	_remove_furniture()
-	
+func handle_undo() -> void:
+	var furniture: Furniture = get_furniture_at_pos(hover_node.global_position)
+	_remove_furniture(furniture)
+
 func reset() -> void:
 	_remove_hover_node()

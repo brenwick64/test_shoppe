@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://bn4m663p1cf5h"]
+
+[ext_resource type="Script" path="res://scripts/classes/InventoryItem.gd" id="1_6rrt2"]
+[ext_resource type="Resource" uid="uid://nb250kkujksn" path="res://resources/funiture/small_table.tres" id="1_b6mpk"]
+
+[resource]
+script = ExtResource("1_6rrt2")
+item = ExtResource("1_b6mpk")
+count = 2

@@ -37,6 +37,6 @@ func add_item(new_item: RItem) -> void:
 			
 func remove_item(item: RItem) -> void:
 	for inv_item: InventoryItem in inv_items:
-		if inv_item.item.item_name == item.item_name:
+		if inv_item.item.name == item.name:
 			inv_item.count -= 1
 	_update_inv_items()

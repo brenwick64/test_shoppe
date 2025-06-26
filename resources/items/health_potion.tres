@@ -1,29 +1,9 @@
-[gd_resource type="Resource" script_class="RSellable" load_steps=9 format=3 uid="uid://bt6j6xql3whpr"]
+[gd_resource type="Resource" script_class="RSellable" load_steps=5 format=3 uid="uid://bt6j6xql3whpr"]
 
 [ext_resource type="Script" path="res://scripts/resource_definitions/sellable.gd" id="1_iwpow"]
 [ext_resource type="PackedScene" uid="uid://iska77fps4f4" path="res://scenes/ui/placeable_icons/health_potion_icon.tscn" id="1_u8jwd"]
+[ext_resource type="PackedScene" uid="uid://u1pki2i0y6pq" path="res://scenes/pickups/item_pickups/health_potion_pickup.tscn" id="2_2yh5t"]
 [ext_resource type="PackedScene" uid="uid://woaj16c2nqy5" path="res://scenes/shoppe_items/potion.tscn" id="2_jf35v"]
-[ext_resource type="PackedScene" uid="uid://faver38eshto" path="res://scenes/components/pickup/pickup_component.tscn" id="2_xnpyo"]
-[ext_resource type="Texture2D" uid="uid://nm7fmp3a8xqn" path="res://assets/items/potionpack-100.png" id="3_oarj8"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_641gq"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nu4tm"]
-atlas = ExtResource("3_oarj8")
-region = Rect2(116, 5, 9, 10)
-
-[sub_resource type="PackedScene" id="PackedScene_irfaf"]
-_bundled = {
-"conn_count": 0,
-"conns": PackedInt32Array(),
-"editable_instances": [],
-"names": PackedStringArray("HealthPotionPickup", "Node2D", "PickupAOE", "Area2D", "CollisionShape2D", "shape", "PickupComponent", "Sprite2D", "texture"),
-"node_count": 5,
-"node_paths": [],
-"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 0, 0, 0, 0, 3, 2, -1, 0, 0, 1, 0, 4, 4, -1, 1, 5, 0, 0, 0, 0, 2147483647, 6, 1, 0, 0, 0, 0, 7, 7, -1, 1, 8, 2, 0),
-"variants": [SubResource("CircleShape2D_641gq"), ExtResource("2_xnpyo"), SubResource("AtlasTexture_nu4tm")],
-"version": 3
-}
 
 [resource]
 script = ExtResource("1_iwpow")
@@ -31,4 +11,4 @@ base_value = 10
 item_name = "health_potion"
 scene = ExtResource("2_jf35v")
 icon_scene = ExtResource("1_u8jwd")
-pickup_scene = SubResource("PackedScene_irfaf")
+pickup_scene = ExtResource("2_2yh5t")

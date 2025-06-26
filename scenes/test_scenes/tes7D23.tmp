@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://dkfxuneejuwq5"]
+[gd_scene load_steps=15 format=4 uid="uid://dkfxuneejuwq5"]
 
 [ext_resource type="Script" path="res://scenes/managers/tile_manager.gd" id="1_i48rj"]
 [ext_resource type="Script" path="res://scenes/managers/input_manager/input_manager.gd" id="1_k1r1f"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://d3bcljnndaea3" path="res://scenes/player/player.tscn" id="2_0dhms"]
 [ext_resource type="Script" path="res://scenes/managers/build_manager/furniture_handler.gd" id="3_eu557"]
 [ext_resource type="Script" path="res://scenes/managers/placement_manager/placement_manager.gd" id="3_jchkw"]
-[ext_resource type="PackedScene" uid="uid://bkil345x72mdo" path="res://scenes/pickups/pickup.tscn" id="5_0gpva"]
 [ext_resource type="Script" path="res://scenes/managers/build_manager/item_handler.gd" id="5_2ka6q"]
 [ext_resource type="Script" path="res://scenes/managers/inventory_manager/inventory_manager.gd" id="8_tr68y"]
 [ext_resource type="Script" path="res://scripts/classes/InventoryItem.gd" id="9_mayjv"]
@@ -32,7 +31,6 @@ script = ExtResource("3_jchkw")
 
 [node name="Furniture" type="Node" parent="Managers/PlacementManager" node_paths=PackedStringArray("inventory_manager")]
 script = ExtResource("3_eu557")
-pickup_scene = ExtResource("5_0gpva")
 inventory_manager = NodePath("../../InventoryManager")
 
 [node name="Item" type="Node" parent="Managers/PlacementManager"]

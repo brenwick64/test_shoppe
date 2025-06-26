@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var pickup:Node2D
+@export var pickup: Pickup
 @export var start_pos:Vector2
 @export var end_pos:Vector2
 @export var travel_time:float = 0.5

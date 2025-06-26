@@ -1,4 +1,4 @@
 class_name RFurniture
 extends RItem
 
-@export var item: RItem
+@export var placed_item: RSellable
