@@ -68,5 +68,6 @@ func _on_inventory_manager_item_depleted(item: RItem) -> void:
 	for container: PanelContainer in item_containers:
 		if not container.item: continue
 		if container.item.name == item.name:
+			#BUG: Old item image stays, make sure to proper teardown
 			container.item = null
 			container.hide_ui()

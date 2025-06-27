@@ -1,14 +1,11 @@
 extends Node
 
 signal action_pressed(event: InputEvent)
-signal undo_pressed(event: InputEvent)
 signal action_bar_pressed(number: int)
 
 func _handle_clicks(event: InputEvent):
 	if event.is_action_pressed("Action"): 
 		action_pressed.emit(event)
-	if event.is_action_pressed("Undo"): 
-		undo_pressed.emit(event)
 
 func _handle_action_bar(event: InputEvent):
 	var action_bar_map: Dictionary = {

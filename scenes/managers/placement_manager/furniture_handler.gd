@@ -42,7 +42,7 @@ func _place_hover_node(tile_global_pos: Vector2, item: RItem) -> void:
 	new_hover_node.global_position = tile_global_pos
 	
 	# add hover node to scene
-	get_tree().root.add_child(new_hover_node)
+	get_tree().root.call_deferred("add_child", new_hover_node)
 	hover_node = new_hover_node
 
 func _remove_hover_node() -> void:
@@ -84,9 +84,6 @@ func handle_action(item: RItem) -> void:
 	var placed_furniture: RItem = _place_furniture(item)
 	if placed_furniture:
 		inventory_manager.remove_item(placed_furniture)
-
-func handle_undo() -> void:
-	pass
 
 func reset() -> void:
 	_remove_hover_node()

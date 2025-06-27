@@ -89,8 +89,5 @@ func handle_tile_mouseout() -> void:
 func handle_action(item: RItem) -> void:
 	_place_item(item)
 
-func handle_undo() -> void:
-	pass
-
 func reset() -> void:
 	_remove_hover_node()

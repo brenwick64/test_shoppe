@@ -91,7 +91,7 @@ size_flags_vertical = 8
 [connection signal="new_tile_hovered" from="Managers/TileManager" to="Managers/PlacementManager" method="_on_tile_manager_new_tile_hovered"]
 [connection signal="action_bar_pressed" from="Managers/InputManager" to="UI/Inventory" method="_on_input_manager_action_bar_pressed"]
 [connection signal="action_pressed" from="Managers/InputManager" to="Managers/PlacementManager" method="_on_input_manager_action_pressed"]
-[connection signal="undo_pressed" from="Managers/InputManager" to="Managers/PlacementManager" method="_on_input_manager_undo_pressed"]
+[connection signal="item_removed" from="Managers/PlacementManager/Tool" to="Managers/PlacementManager" method="_on_tool_item_removed"]
 [connection signal="inventory_updated" from="Managers/InventoryManager" to="UI/Inventory" method="_on_inventory_manager_inventory_updated"]
 [connection signal="item_depleted" from="Managers/InventoryManager" to="Managers/PlacementManager" method="_on_inventory_manager_item_depleted"]
 [connection signal="item_depleted" from="Managers/InventoryManager" to="UI/Inventory" method="_on_inventory_manager_item_depleted"]

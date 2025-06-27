@@ -10,8 +10,5 @@ func handle_tile_mouseout() -> void:
 func handle_action(item: RItem) -> void:
 	pass
 
-func handle_undo() -> void:
-	pass
-
 func reset() -> void:
 	pass

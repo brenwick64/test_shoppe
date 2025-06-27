@@ -1,5 +1,7 @@
 extends PlacementHandler
 
+signal item_removed(item: RItem)
+
 @export var furniture_handler: PlacementHandler
 @export var item_handler: PlacementHandler
 
@@ -53,11 +55,10 @@ func handle_tile_mouseout() -> void:
 
 func handle_action(item: RItem) -> void:
 	if not hovered_node: return
+	if not hovered_f_mapping and not hovered_i_mapping: return
 	if hovered_i_mapping: _remove_item()
 	elif hovered_f_mapping: _remove_furniture()
-
-func handle_undo() -> void:
-	pass
+	item_removed.emit(item)
 
 func reset() -> void:
-	pass
+	_clear_hovered()

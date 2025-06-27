@@ -7,3 +7,4 @@
 script = ExtResource("1_elgby")
 item = ExtResource("1_tp8xx")
 count = 1
+stackable = false
