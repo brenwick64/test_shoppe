@@ -1,7 +1,11 @@
-[gd_resource type="Resource" script_class="RTool" load_steps=2 format=3 uid="uid://dor34jy4buyrf"]
+[gd_resource type="Resource" script_class="RTool" load_steps=4 format=3 uid="uid://dor34jy4buyrf"]
 
+[ext_resource type="PackedScene" uid="uid://esj8o18pgnvq" path="res://scenes/ui/placeable_icons/remover_tool_icon.tscn" id="1_e5d5x"]
 [ext_resource type="Script" path="res://scripts/resource_definitions/tool.gd" id="1_yriwh"]
+[ext_resource type="PackedScene" uid="uid://btunukieg0orx" path="res://scenes/shoppe_tools/remover.tscn" id="2_ogwcs"]
 
 [resource]
 script = ExtResource("1_yriwh")
 name = "remover_tool"
+scene = ExtResource("2_ogwcs")
+icon_scene = ExtResource("1_e5d5x")

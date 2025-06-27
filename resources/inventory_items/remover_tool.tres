@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://bae3c3vw270yp"]
+
+[ext_resource type="Script" path="res://scripts/classes/InventoryItem.gd" id="1_elgby"]
+[ext_resource type="Resource" uid="uid://dor34jy4buyrf" path="res://resources/tools/remover.tres" id="1_tp8xx"]
+
+[resource]
+script = ExtResource("1_elgby")
+item = ExtResource("1_tp8xx")
+count = 1

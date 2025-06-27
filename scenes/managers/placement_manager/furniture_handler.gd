@@ -1,17 +1,23 @@
 extends PlacementHandler
 
+@onready var outline_sprite: Shader = preload("res://shaders/outline_sprite.gdshader")
 @export var pickup_scene: PackedScene
 @export var inventory_manager: InventoryManager
 
-var furniture_map: Array[FurnitureMapping] = []
+var furniture_mappings: Array[FurnitureMapping] = []
 var hover_node: Node2D
 
 # public methods
 func get_furniture_map_at_pos(global_pos: Vector2) -> FurnitureMapping:
-	for mapping: FurnitureMapping in furniture_map:
+	for mapping: FurnitureMapping in furniture_mappings:
 		if global_pos in mapping.occupied_tiles:
 			return mapping
 	return null
+
+func remove_furniture(mapping: FurnitureMapping):
+	furniture_mappings = furniture_mappings.filter(func(f): return mapping.furniture_node != f.furniture_node)
+	mapping.furniture_node.queue_free()
+	_spawn_furniture_pickup(mapping)
 
 # helper functions
 func _spawn_furniture_pickup(mapping: FurnitureMapping) -> void:
@@ -49,23 +55,23 @@ func _place_furniture(item: RItem) -> RItem:
 	if not hover_node: return
 	if get_furniture_map_at_pos(hover_node.global_position): return
 	
-	# create furniture node
+	# create furniture_node
+	var furniture: Furniture = item.scene.instantiate()
+	furniture.global_position = hover_node.global_position
+	# assign outline shader
+	var sprite: Sprite2D = furniture.get_node("Sprite2D")
+	var shader_material: ShaderMaterial = ShaderMaterial.new()
+	shader_material.shader = outline_sprite
+	sprite.material = shader_material
+	# create furniture mapping node
 	var new_map: FurnitureMapping = FurnitureMapping.new()
 	new_map.furniture = item
 	new_map.occupied_tiles = [hover_node.global_position]
-	var furniture: Furniture = item.scene.instantiate()
-	furniture.global_position = hover_node.global_position
 	new_map.furniture_node = furniture
-	furniture_map.append(new_map)
+	furniture_mappings.append(new_map)
 	# add furniture to scene
 	get_tree().root.add_child(furniture)
 	return item
-
-func _remove_furniture(mapping: FurnitureMapping):
-	if not hover_node: return
-	furniture_map = furniture_map.filter(func(f): return mapping.furniture_node != f.furniture_node)
-	mapping.furniture_node.queue_free()
-	_spawn_furniture_pickup(mapping)
 
 # override methods
 func handle_new_tile_hovered(tile_global_pos: Vector2, item: RItem) -> void:
@@ -80,9 +86,7 @@ func handle_action(item: RItem) -> void:
 		inventory_manager.remove_item(placed_furniture)
 
 func handle_undo() -> void:
-	var mapping: FurnitureMapping = get_furniture_map_at_pos(hover_node.global_position)
-	if mapping:
-		_remove_furniture(mapping)
+	pass
 
 func reset() -> void:
 	_remove_hover_node()

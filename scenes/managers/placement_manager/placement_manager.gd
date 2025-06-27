@@ -2,6 +2,7 @@ extends Node
 
 @onready var furniture_handler: PlacementHandler = $Furniture
 @onready var item_handler: PlacementHandler = $Item
+@onready var tool_handler: Node = $Tool
 
 var selected_item: RItem
 
@@ -9,6 +10,7 @@ var selected_item: RItem
 func _get_current_placement_handler(item: RItem) -> PlacementHandler:
 	if item is RFurniture: return furniture_handler
 	if item is RSellable: return item_handler
+	if item is RTool: return tool_handler
 	return null
 
 # -- user input --

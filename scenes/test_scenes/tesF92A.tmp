@@ -40,10 +40,9 @@ script = ExtResource("5_2ka6q")
 inventory_manager = NodePath("../../InventoryManager")
 furniture_handler = NodePath("../Furniture")
 
-[node name="Tool" type="Node" parent="Managers/PlacementManager" node_paths=PackedStringArray("furniture_handler", "item_handler")]
+[node name="Tool" type="Node" parent="Managers/PlacementManager" node_paths=PackedStringArray("furniture_handler")]
 script = ExtResource("7_0y5kf")
 furniture_handler = NodePath("../Furniture")
-item_handler = NodePath("../Item")
 
 [node name="InventoryManager" type="Node" parent="Managers" groups=["Inventory"]]
 script = ExtResource("8_tr68y")
