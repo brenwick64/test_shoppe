@@ -27,6 +27,7 @@ wait_time = 0.5
 one_shot = true
 
 [node name="Table" parent="." instance=ExtResource("3_aede2")]
+scale = Vector2(0.75, 0.75)
 
 [connection signal="arc_motion_finished" from="Behaviors/ArcMoveOnSpawn" to="." method="_on_arc_move_on_spawn_arc_motion_finished"]
 [connection signal="area_entered" from="PickupArea" to="." method="_on_pickup_area_area_entered"]

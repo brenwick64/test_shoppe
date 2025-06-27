@@ -4,6 +4,13 @@ extends Node2D
 @onready var occupied_tiles: Array[Vector2]
 @onready var item_slots: Node2D = $ItemSlots
 
+func get_open_slot() -> Node2D:
+	var slots: Array[Node] = item_slots.get_children()
+	for slot: Node2D in slots:
+		if slot.get_child_count() == 0:
+			return slot
+	return null
+
 #func _update_is_full() -> void:
 	#if item_slot.get_child_count() > 0:
 		#is_full = true

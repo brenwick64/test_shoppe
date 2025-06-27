@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://btunukieg0orx"]
+
+[ext_resource type="Texture2D" uid="uid://3v6ujgwqhjty" path="res://assets/ui/sprite_sheets/Sprite sheet for Basic Pack.png" id="1_2tefl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yx7tu"]
+atlas = ExtResource("1_2tefl")
+region = Rect2(467, 164, 10, 10)
+
+[node name="Remover" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_yx7tu")

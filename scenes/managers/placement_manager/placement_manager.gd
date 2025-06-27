@@ -1,12 +1,14 @@
 extends Node
 
-@onready var furniture_handler: Node = $Furniture
+@onready var furniture_handler: PlacementHandler = $Furniture
+@onready var item_handler: PlacementHandler = $Item
 
 var selected_item: RItem
 
 # -- helper functions --
 func _get_current_placement_handler(item: RItem) -> PlacementHandler:
 	if item is RFurniture: return furniture_handler
+	if item is RSellable: return item_handler
 	return null
 
 # -- user input --
@@ -33,6 +35,9 @@ func _on_tile_manager_layer_mouse_out() -> void:
 
 # -- ui inputs --
 func _on_inventory_item_selected(item: RItem) -> void:
+	var handler: PlacementHandler = _get_current_placement_handler(selected_item)
+	if handler: 
+		handler.reset()
 	selected_item = item
 
 # -- inventory inputs --

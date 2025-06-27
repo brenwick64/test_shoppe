@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="RTool" load_steps=2 format=3 uid="uid://dor34jy4buyrf"]
+
+[ext_resource type="Script" path="res://scripts/resource_definitions/tool.gd" id="1_yriwh"]
+
+[resource]
+script = ExtResource("1_yriwh")
+name = "remover_tool"

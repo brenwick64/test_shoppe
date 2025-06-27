@@ -1,6 +1,8 @@
 class_name Pickup
 extends Node2D
 
+@export var item_data: RItem
+
 ## behaviors
 @onready var arc_move_on_spawn:Node2D = $Behaviors/ArcMoveOnSpawn
 ## collisions
@@ -28,5 +30,5 @@ func _on_pickup_delay_timeout():
 func _on_pickup_area_area_entered(area):
 	var inventory_manager: InventoryManager = get_tree().get_first_node_in_group("Inventory")
 	if not inventory_manager: return
-	#inventory_manager.add_item(item)
+	inventory_manager.add_item(item_data)
 	queue_free()

@@ -8,7 +8,7 @@
 [resource]
 script = ExtResource("1_iwpow")
 base_value = 10
-item_name = "health_potion"
+name = "health_potion"
 scene = ExtResource("2_jf35v")
 icon_scene = ExtResource("1_u8jwd")
 pickup_scene = ExtResource("2_2yh5t")

@@ -3,4 +3,4 @@ extends Node
 
 var furniture: RFurniture
 var furniture_node: Node2D
-var occupied_tiles: Array[Vector2i]
+var occupied_tiles: Array[Vector2]

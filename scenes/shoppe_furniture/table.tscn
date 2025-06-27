@@ -23,4 +23,4 @@ shape = SubResource("RectangleShape2D_u8tnt")
 [node name="ItemSlots" type="Node2D" parent="."]
 
 [node name="ItemSlot1" type="Node2D" parent="ItemSlots"]
-position = Vector2(0, -1)
+position = Vector2(0, -2)

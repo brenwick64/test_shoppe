@@ -25,12 +25,13 @@ func _add_new_inventory_item(new_item: RItem) -> void:
 
 func _increment_existing_item(new_item: RItem) -> void:
 	for inv_item: InventoryItem in inv_items:
-		if inv_item.item.item_name == new_item.item_name:
+		if inv_item.item.name == new_item.name:
 			inv_item.count += 1
 
 # methods
 func add_item(new_item: RItem) -> void:
-	var is_new_item: bool = inv_items.filter(func(i: InventoryItem): return i.item.item_name == new_item.item_name).size() == 0
+	if not new_item: return
+	var is_new_item: bool = inv_items.filter(func(i: InventoryItem): return i.item.name == new_item.name).size() == 0
 	if is_new_item: _add_new_inventory_item(new_item)
 	else: _increment_existing_item(new_item)
 	_update_inv_items()
