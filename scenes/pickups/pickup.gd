@@ -27,7 +27,7 @@ func _on_pickup_delay_timeout():
 	pickup_collision.disabled = false
 
 # step 3 -send item info to inventory manager
-func _on_pickup_area_area_entered(area):
+func _on_pickup_area_area_entered(_area):
 	var inventory_manager: InventoryManager = get_tree().get_first_node_in_group("Inventory")
 	if not inventory_manager: return
 	inventory_manager.add_item(item_data)

@@ -32,7 +32,7 @@ func _remove_item() -> void:
 	_clear_hovered()
 
 ## -- methods overrides --
-func handle_new_tile_hovered(tile_global_pos: Vector2, item: RItem) -> void:
+func handle_new_tile_hovered(tile_global_pos: Vector2, _item: RItem) -> void:
 	_clear_hovered() # clear existing node
 	
 	# get furniture mapping

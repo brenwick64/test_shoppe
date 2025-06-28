@@ -13,18 +13,18 @@ func _ready() -> void:
 # helper functions
 func _select_next_item_container() -> void:
 	for item_container: Node in item_container_list.get_children():
-		if item_container.item:
+		if item_container.inventory_item:
 			item_container.on_btn_pressed()
 			return
 
 func _matches_item_name(container, target_item_name: String) -> bool:
-	if not container.item: return false
-	return container.item.name == target_item_name
+	if not container.inventory_item: return false
+	return container.inventory_item.item.name == target_item_name
 
 func _get_next_empty_inv_slot() -> PanelContainer:
 	var item_containers: Array[Node] = item_container_list.get_children() 
 	for container: PanelContainer in item_containers:
-		if not container.item:
+		if not container.inventory_item:
 			return container
 	return null
 
@@ -32,15 +32,14 @@ func _update_item_container(inv_item: InventoryItem) -> void:
 	var item_containers: Array[Node] = item_container_list.get_children() 
 	var match_container: Array[Node] = item_containers.filter(func(container): return _matches_item_name(container, inv_item.item.name))
 	if match_container.size() > 0:
-		match_container[0].item_count = inv_item.count
+		match_container[0].inventory_item.count = inv_item.count
 		match_container[0].update_ui()
 
 func _add_new_item_container(inv_item: InventoryItem) -> void:
 	var next_empty: PanelContainer = _get_next_empty_inv_slot()
 	# TODO: handle full inv
 	if not next_empty: return
-	next_empty.item = inv_item.item
-	next_empty.item_count = inv_item.count
+	next_empty.inventory_item = inv_item
 	next_empty.update_ui()
 
 # signals
@@ -66,8 +65,6 @@ func _on_inventory_manager_inventory_updated(inv_items: Array[InventoryItem]) ->
 func _on_inventory_manager_item_depleted(item: RItem) -> void:
 	var item_containers: Array[Node] = item_container_list.get_children()
 	for container: PanelContainer in item_containers:
-		if not container.item: continue
-		if container.item.name == item.name:
-			#BUG: Old item image stays, make sure to proper teardown
-			container.item = null
-			container.hide_ui()
+		if not container.inventory_item: continue
+		if container.inventory_item.item.name == item.name:
+			container.clear_item()

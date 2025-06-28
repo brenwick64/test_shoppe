@@ -15,7 +15,7 @@ func _get_current_placement_handler(item: RItem) -> PlacementHandler:
 	return null
 
 # -- user input --
-func _on_input_manager_action_pressed(event: InputEvent) -> void:
+func _on_input_manager_action_pressed(_event: InputEvent) -> void:
 	var handler: PlacementHandler = _get_current_placement_handler(selected_item)
 	if not handler: return
 	handler.handle_action(selected_item)
@@ -42,7 +42,7 @@ func _on_inventory_item_selected(item: RItem) -> void:
 	_on_tile_manager_new_tile_hovered(current_tile_pos)
 
 # -- inventory inputs --
-func _on_inventory_manager_item_depleted(item: RItem) -> void:
+func _on_inventory_manager_item_depleted(_item: RItem) -> void:
 	var handler: PlacementHandler = _get_current_placement_handler(selected_item)
 	if handler:
 		handler.reset()
