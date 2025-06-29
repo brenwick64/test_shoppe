@@ -1,13 +1,15 @@
-[gd_resource type="Resource" script_class="RFurniture" load_steps=5 format=3 uid="uid://nb250kkujksn"]
+[gd_resource type="Resource" script_class="RFurniture" load_steps=6 format=3 uid="uid://nb250kkujksn"]
 
 [ext_resource type="PackedScene" uid="uid://dofufa6w367pp" path="res://scenes/ui/placeable_icons/small_table_icon.tscn" id="1_2pyvy"]
 [ext_resource type="Script" path="res://scripts/resource_definitions/furniture.gd" id="1_4tyaw"]
 [ext_resource type="PackedScene" uid="uid://c08e7h0m25gjx" path="res://scenes/pickups/item_pickups/small_table_pickup.tscn" id="2_3n3pf"]
 [ext_resource type="PackedScene" uid="uid://ceqd7vle4rxvy" path="res://scenes/shoppe_furniture/table.tscn" id="2_mqdwu"]
+[ext_resource type="PackedScene" uid="uid://bemjh8q7wo8o6" path="res://scenes/placement_previews/small_table_preview.tscn" id="3_546bl"]
 
 [resource]
 script = ExtResource("1_4tyaw")
-item_name = "small_table"
+placement_preview_scene = ExtResource("3_546bl")
+name = ""
 scene = ExtResource("2_mqdwu")
 icon_scene = ExtResource("1_2pyvy")
 pickup_scene = ExtResource("2_3n3pf")

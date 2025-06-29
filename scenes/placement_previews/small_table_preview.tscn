@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://bemjh8q7wo8o6"]
+
+[ext_resource type="Script" path="res://scenes/placement_previews/placement_preview.gd" id="1_5oc0q"]
+[ext_resource type="Texture2D" uid="uid://cxnhogshrlhms" path="res://assets/objects/basic_furniture.png" id="1_pldxe"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_msrg6"]
+atlas = ExtResource("1_pldxe")
+region = Rect2(48, 49, 16, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iorby"]
+size = Vector2(16, 16.5)
+
+[node name="SmallTablePreview" type="Node2D"]
+script = ExtResource("1_5oc0q")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_msrg6")
+
+[node name="PlacementArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlacementArea"]
+position = Vector2(0, -0.25)
+shape = SubResource("RectangleShape2D_iorby")

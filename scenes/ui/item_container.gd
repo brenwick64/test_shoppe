@@ -10,6 +10,7 @@ signal item_selected(item: RItem)
 @export var inventory_item: InventoryItem
 
 func _ready() -> void:
+	circle_panel.visible = false
 	item_btn.pressed.connect(on_btn_pressed)
 	key_label.text = str(index)
 	if inventory_item: update_ui()

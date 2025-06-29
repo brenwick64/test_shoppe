@@ -14,6 +14,10 @@ config/name="test_shoppe"
 run/main_scene="res://scenes/test_scenes/test_shoppe.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 
+[autoload]
+
+Constants="*res://scripts/globals/constants.gd"
+
 [file_customization]
 
 folder_colors={

@@ -43,7 +43,6 @@ size_flags_vertical = 8
 text = "1"
 
 [node name="CirclePanel" type="Panel" parent="."]
-visible = false
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 8

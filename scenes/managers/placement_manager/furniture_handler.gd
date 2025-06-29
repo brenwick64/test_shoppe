@@ -20,6 +20,11 @@ func remove_furniture(mapping: FurnitureMapping):
 	_spawn_furniture_pickup(mapping)
 
 # helper functions
+func _is_placable_distance(global_pos: Vector2):
+	var player: CharacterBody2D = get_tree().get_first_node_in_group("Player")
+	var distance: float = global_pos.distance_to(player.global_position)
+	return Constants.BUILD_DISTANCE > distance
+
 func _spawn_furniture_pickup(mapping: FurnitureMapping) -> void:
 	var player: CharacterBody2D = get_tree().get_first_node_in_group("Player")
 	var pickup: Pickup = mapping.furniture.pickup_scene.instantiate()
@@ -35,10 +40,10 @@ func _place_hover_node(tile_global_pos: Vector2, item: RItem) -> void:
 	if hover_node:
 		hover_node.queue_free()
 		hover_node = null
+		
+	if not _is_placable_distance(tile_global_pos): return
 
-	var new_hover_node: Node2D = item.scene.instantiate()
-	var hover_node_sprite: Sprite2D = new_hover_node.get_node_or_null("Sprite2D")
-	hover_node_sprite.modulate = Color(1, 1, 1, 0.5)
+	var new_hover_node: Node2D = item.placement_preview_scene.instantiate()
 	new_hover_node.global_position = tile_global_pos
 	
 	# add hover node to scene
@@ -53,6 +58,8 @@ func _remove_hover_node() -> void:
 func _place_furniture(item: RItem) -> RItem:
 	# validity checks
 	if not hover_node: return
+	if not hover_node.is_valid_placement: return
+	#if not _is_placable_distance(hover_node.global_position): return
 	if get_furniture_map_at_pos(hover_node.global_position): return
 	
 	# create furniture_node
