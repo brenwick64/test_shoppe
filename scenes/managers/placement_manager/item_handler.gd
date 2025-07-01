@@ -24,8 +24,7 @@ func _remove_hover_node() -> void:
 func _get_furniture_slot(tile_global_pos: Vector2) -> Node2D:
 	var mapping: FurnitureMapping = furniture_handler.get_furniture_map_at_pos(tile_global_pos)
 	if not mapping: return null
-	# TODO: change this based on larger furniture
-	var open_slot: Node2D = mapping.furniture_node.get_open_slot()
+	var open_slot: Node2D = mapping.furniture_node.get_closest_open_slot(tile_global_pos)
 	if not open_slot: return null
 	return open_slot
 

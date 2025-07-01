@@ -21,6 +21,7 @@ size = Vector2(12, 25.5)
 
 [node name="LargeTable" type="StaticBody2D"]
 script = ExtResource("1_w3srf")
+tile_matrix = Array[Vector2]([Vector2(0, 0), Vector2(0, -1)])
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_hv0up")

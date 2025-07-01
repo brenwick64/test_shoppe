@@ -32,6 +32,7 @@ size = Vector2(12, 9)
 y_sort_enabled = true
 material = SubResource("ShaderMaterial_hi35b")
 script = ExtResource("1_5duar")
+tile_matrix = Array[Vector2]([Vector2(0, 0)])
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_r4u5h")

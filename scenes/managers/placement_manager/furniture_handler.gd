@@ -21,6 +21,19 @@ func remove_furniture(mapping: FurnitureMapping):
 	_spawn_furniture_pickup(mapping)
 
 # helper functions
+func _is_occupied_tiles(tile_global_pos: Vector2, hover_node: Node2D) -> bool:
+	var adjusted_matrix: Array[Vector2] = []
+	# build adjusted tile matrix
+	for vector: Vector2 in hover_node.tile_matrix:
+		var tile_coords = tile_manager.get_tile_coords_from_gp(tile_global_pos) + vector
+		adjusted_matrix.append(tile_coords)
+	# compare against mapped coords
+	for coords: Vector2 in adjusted_matrix:
+		for mapping: FurnitureMapping in furniture_mappings:
+			if coords in mapping.occupied_tiles:
+				return true
+	return false
+
 func _is_placable_distance(global_pos: Vector2):
 	var player: CharacterBody2D = get_tree().get_first_node_in_group("Player")
 	var distance: float = global_pos.distance_to(player.global_position)
@@ -42,10 +55,10 @@ func _place_hover_node(tile_global_pos: Vector2, item: RItem) -> void:
 		hover_node.queue_free()
 		hover_node = null
 	# validity checks
-	if get_furniture_map_at_pos(tile_global_pos): return
+	#if get_furniture_map_at_pos(tile_global_pos): return
 	if not _is_placable_distance(tile_global_pos): return
-
 	var new_hover_node: Node2D = item.placement_preview_scene.instantiate()
+	if _is_occupied_tiles(tile_global_pos, new_hover_node): return
 	var pivot: Marker2D = new_hover_node.get_node("Pivot")
 	new_hover_node.tile_global_pos = tile_global_pos
 	new_hover_node.global_position = tile_global_pos - pivot.global_position
@@ -81,13 +94,6 @@ func _place_furniture(item: RItem) -> RItem:
 	furniture_mappings.append(new_map)
 	# add furniture to scene
 	shoppe_furniture.add_child(furniture)
-	#TODO:
-	print("Furniture Tile Coords")
-	var to_string = ""
-	for mapping in furniture_mappings:
-		to_string = to_string + str(mapping.occupied_tiles) + ","
-	print(to_string)
-	
 	return item
 
 # override methods

@@ -5,12 +5,18 @@ extends Node2D
 @onready var item_slots: Node2D = $ItemSlots
 @onready var occupied_tiles: Array[Vector2]
 
-func get_open_slot() -> Node2D:
+@export var tile_matrix: Array[Vector2]
+
+func get_closest_open_slot(tile_global_pos: Vector2) -> Node2D:
+	var closest_slot: Node2D
 	var slots: Array[Node] = item_slots.get_children()
 	for slot: Node2D in slots:
 		if slot.get_child_count() == 0:
-			return slot
-	return null
+			if not closest_slot: 
+				closest_slot = slot
+			elif slot.global_position.distance_to(tile_global_pos) < closest_slot.global_position.distance_to(tile_global_pos):
+				closest_slot = slot
+	return closest_slot
 
 func focus() -> void:
 	var shader_material: ShaderMaterial = sprite_2d.material
