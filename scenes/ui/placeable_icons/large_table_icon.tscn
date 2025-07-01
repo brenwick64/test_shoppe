@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://csnbtssjwc42x"]
+
+[ext_resource type="Texture2D" uid="uid://b2mdtpik1ua02" path="res://assets/objects/large-table.png" id="1_4ra83"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uj78m"]
+atlas = ExtResource("1_4ra83")
+
+[node name="LargeTableIcon" type="TextureRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_uj78m")

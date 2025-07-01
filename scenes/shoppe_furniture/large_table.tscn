@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://ctp3wsls6qm1p"]
+
+[ext_resource type="Texture2D" uid="uid://b2mdtpik1ua02" path="res://assets/objects/large-table.png" id="1_nhxng"]
+[ext_resource type="Script" path="res://scripts/classes/Furniture.gd" id="1_w3srf"]
+[ext_resource type="Shader" path="res://shaders/outline_sprite.gdshader" id="2_brq68"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hv0up"]
+resource_local_to_scene = true
+shader = ExtResource("2_brq68")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rggc6"]
+atlas = ExtResource("1_nhxng")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_06ooc"]
+size = Vector2(12, 25.5)
+
+[node name="LargeTable" type="StaticBody2D"]
+script = ExtResource("1_w3srf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_hv0up")
+position = Vector2(0, -12)
+texture = SubResource("AtlasTexture_rggc6")
+offset = Vector2(0, 12)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_06ooc")
+
+[node name="ItemSlots" type="Node2D" parent="."]
+
+[node name="ItemSlot1" type="Node2D" parent="ItemSlots"]
+position = Vector2(0, -8)
+
+[node name="ItemSlot2" type="Node2D" parent="ItemSlots"]
+position = Vector2(0, 5)

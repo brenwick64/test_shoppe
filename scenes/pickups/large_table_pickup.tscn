@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://c6crbgug3his4"]
+
+[ext_resource type="Script" path="res://scenes/pickups/pickup.gd" id="1_j31km"]
+[ext_resource type="PackedScene" uid="uid://dxhljr7q0bwse" path="res://scenes/pickups/arc_move_on_spawn.tscn" id="2_xcerb"]
+[ext_resource type="PackedScene" uid="uid://ctp3wsls6qm1p" path="res://scenes/shoppe_furniture/large_table.tscn" id="3_qg2y5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_trhfn"]
+size = Vector2(14, 26)
+
+[node name="LargeTablePickup" type="Node2D"]
+script = ExtResource("1_j31km")
+
+[node name="Behaviors" type="Node" parent="."]
+
+[node name="ArcMoveOnSpawn" parent="Behaviors" node_paths=PackedStringArray("pickup") instance=ExtResource("2_xcerb")]
+pickup = NodePath("../..")
+
+[node name="PickupArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+shape = SubResource("RectangleShape2D_trhfn")
+debug_color = Color(0.788809, 0.3487, 0.651901, 0.42)
+
+[node name="PickupDelay" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="LargeTable" parent="." instance=ExtResource("3_qg2y5")]
+scale = Vector2(0.75, 0.75)
+
+[connection signal="area_entered" from="PickupArea" to="." method="_on_pickup_area_area_entered"]

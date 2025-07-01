@@ -2,6 +2,7 @@ extends PlacementHandler
 
 @onready var outline_item: Shader = preload("res://shaders/outline_sprite.gdshader")
 
+@export var tile_manager: TileManager
 @export var inventory_manager: InventoryManager
 @export var furniture_handler: PlacementHandler
 
@@ -57,8 +58,9 @@ func _place_item(item: RItem) -> void:
 	var i_mapping: ItemMapping = ItemMapping.new()
 	i_mapping.item = item
 	i_mapping.item_node = item_ins
-	i_mapping.occupied_tiles = [hovered_tile_gp]
+	i_mapping.occupied_tiles = [tile_manager.get_tile_coords_from_gp(open_slot.global_position)]
 	f_mapping.item_mappings.append(i_mapping)
+	
 	# remove hover node
 	_remove_hover_node()
 	# remove item from inventory

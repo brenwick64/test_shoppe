@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://cuxgs4k7mvouy"]
+
+[ext_resource type="Resource" uid="uid://cs83bx3mmlvcp" path="res://resources/funiture/large_table.tres" id="1_dijyh"]
+[ext_resource type="Script" path="res://scripts/classes/InventoryItem.gd" id="1_vmc24"]
+
+[resource]
+script = ExtResource("1_vmc24")
+item = ExtResource("1_dijyh")
+count = 10
+stackable = true

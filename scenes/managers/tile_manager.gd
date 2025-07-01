@@ -1,3 +1,4 @@
+class_name TileManager
 extends Node
 
 signal new_tile_hovered(tile_global_pos: Vector2)
@@ -6,6 +7,9 @@ signal layer_mouse_out
 @export var layer: TileMapLayer
 
 var current_hovered_tile_coords: Vector2i
+
+func get_tile_coords_from_gp(global_pos: Vector2):
+	return layer.local_to_map(global_pos)
 
 func _get_hovered_tile_coords() -> Vector2i:
 	var mouse_pos_local: Vector2 = layer.get_local_mouse_position()

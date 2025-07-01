@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://b6p5daylldjgi"]
+
+[ext_resource type="Script" path="res://scenes/placement_previews/placement_preview.gd" id="1_fwi8u"]
+[ext_resource type="Texture2D" uid="uid://b2mdtpik1ua02" path="res://assets/objects/large-table.png" id="1_rbj8u"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ntfol"]
+atlas = ExtResource("1_rbj8u")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_68x2o"]
+size = Vector2(16, 32)
+
+[node name="LargeTablePreview" type="Node2D"]
+script = ExtResource("1_fwi8u")
+tile_matrix = Array[Vector2]([Vector2(0, 0), Vector2(0, -1)])
+
+[node name="Pivot" type="Marker2D" parent="."]
+position = Vector2(0, 8)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_ntfol")
+
+[node name="PlacementArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlacementArea"]
+shape = SubResource("RectangleShape2D_68x2o")

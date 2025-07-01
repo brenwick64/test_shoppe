@@ -1,16 +1,17 @@
 extends PlacementHandler
 
-@onready var outline_sprite: Shader = preload("res://shaders/outline_sprite.gdshader")
 @export var pickup_scene: PackedScene
 @export var inventory_manager: InventoryManager
+@export var tile_manager: TileManager
 
 var furniture_mappings: Array[FurnitureMapping] = []
 var hover_node: Node2D
 
 # public methods
 func get_furniture_map_at_pos(global_pos: Vector2) -> FurnitureMapping:
+	var tile_coords: Vector2 = tile_manager.get_tile_coords_from_gp(global_pos)
 	for mapping: FurnitureMapping in furniture_mappings:
-		if global_pos in mapping.occupied_tiles:
+		if tile_coords in mapping.occupied_tiles:
 			return mapping
 	return null
 
@@ -40,12 +41,14 @@ func _place_hover_node(tile_global_pos: Vector2, item: RItem) -> void:
 	if hover_node:
 		hover_node.queue_free()
 		hover_node = null
-		
+	# validity checks
+	if get_furniture_map_at_pos(tile_global_pos): return
 	if not _is_placable_distance(tile_global_pos): return
 
 	var new_hover_node: Node2D = item.placement_preview_scene.instantiate()
-	new_hover_node.global_position = tile_global_pos
-	
+	var pivot: Marker2D = new_hover_node.get_node("Pivot")
+	new_hover_node.tile_global_pos = tile_global_pos
+	new_hover_node.global_position = tile_global_pos - pivot.global_position
 	# add hover node to scene
 	get_tree().root.call_deferred("add_child", new_hover_node)
 	hover_node = new_hover_node
@@ -59,25 +62,32 @@ func _place_furniture(item: RItem) -> RItem:
 	# validity checks
 	if not hover_node: return
 	if not hover_node.is_valid_placement: return
-	#if not _is_placable_distance(hover_node.global_position): return
-	if get_furniture_map_at_pos(hover_node.global_position): return
-	
-	# create furniture_node
-	var furniture: Furniture = item.scene.instantiate()
-	furniture.global_position = hover_node.global_position
-	# assign outline shader
-	var sprite: Sprite2D = furniture.get_node("Sprite2D")
-	var shader_material: ShaderMaterial = ShaderMaterial.new()
-	shader_material.shader = outline_sprite
-	sprite.material = shader_material
-	# create furniture mapping node
+	if get_furniture_map_at_pos(hover_node.tile_global_pos): return
+	# get shoppe furniture node
+	var shoppe_furniture: Node2D = get_tree().get_first_node_in_group("ShoppeFurniture")
+	if not shoppe_furniture: return
+	# create furniture node
+	var furniture: Node2D = item.scene.instantiate()
+	furniture.global_position = shoppe_furniture.to_local(hover_node.global_position)
+	# create furniture mapping node1wa
 	var new_map: FurnitureMapping = FurnitureMapping.new()
 	new_map.furniture = item
-	new_map.occupied_tiles = [hover_node.global_position]
 	new_map.furniture_node = furniture
+	# fill in tile_coords
+	for vector: Vector2 in hover_node.tile_matrix:
+		var tile_coords: Vector2 = tile_manager.get_tile_coords_from_gp(hover_node.tile_global_pos)
+		new_map.occupied_tiles.append(vector + tile_coords)
+
 	furniture_mappings.append(new_map)
 	# add furniture to scene
-	get_tree().root.add_child(furniture)
+	shoppe_furniture.add_child(furniture)
+	#TODO:
+	print("Furniture Tile Coords")
+	var to_string = ""
+	for mapping in furniture_mappings:
+		to_string = to_string + str(mapping.occupied_tiles) + ","
+	print(to_string)
+	
 	return item
 
 # override methods

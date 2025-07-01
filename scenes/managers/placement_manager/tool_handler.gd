@@ -2,6 +2,7 @@ extends PlacementHandler
 
 signal item_removed(item: RItem)
 
+@export var tile_manager: TileManager
 @export var furniture_handler: PlacementHandler
 @export var item_handler: PlacementHandler
 
@@ -39,7 +40,8 @@ func handle_new_tile_hovered(tile_global_pos: Vector2, _item: RItem) -> void:
 	var f_mapping: FurnitureMapping = furniture_handler.get_furniture_map_at_pos(tile_global_pos)
 	if not f_mapping: return
 	# check item mapping for tile
-	var i_mapping: ItemMapping = f_mapping.get_item_map_at_pos(tile_global_pos)
+	var tile_coords: Vector2 = tile_manager.get_tile_coords_from_gp(tile_global_pos)
+	var i_mapping: ItemMapping = f_mapping.get_item_map_at_tile_coords(tile_coords)
 	# assign hovered node
 	if i_mapping:
 		hovered_f_mapping = f_mapping

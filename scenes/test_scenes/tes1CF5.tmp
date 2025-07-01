@@ -32,21 +32,18 @@ script = ExtResource("1_k1r1f")
 [node name="PlacementManager" type="Node" parent="Managers"]
 script = ExtResource("3_jchkw")
 
-[node name="Furniture" type="Node" parent="Managers/PlacementManager" node_paths=PackedStringArray("inventory_manager", "tile_manager")]
+[node name="Furniture" type="Node" parent="Managers/PlacementManager" node_paths=PackedStringArray("inventory_manager")]
 script = ExtResource("3_eu557")
 pickup_scene = ExtResource("5_0gpva")
 inventory_manager = NodePath("../../InventoryManager")
-tile_manager = NodePath("../../TileManager")
 
-[node name="Item" type="Node" parent="Managers/PlacementManager" node_paths=PackedStringArray("tile_manager", "inventory_manager", "furniture_handler")]
+[node name="Item" type="Node" parent="Managers/PlacementManager" node_paths=PackedStringArray("inventory_manager", "furniture_handler")]
 script = ExtResource("5_2ka6q")
-tile_manager = NodePath("../../TileManager")
 inventory_manager = NodePath("../../InventoryManager")
 furniture_handler = NodePath("../Furniture")
 
-[node name="Tool" type="Node" parent="Managers/PlacementManager" node_paths=PackedStringArray("tile_manager", "furniture_handler", "item_handler")]
+[node name="Tool" type="Node" parent="Managers/PlacementManager" node_paths=PackedStringArray("furniture_handler", "item_handler")]
 script = ExtResource("7_0y5kf")
-tile_manager = NodePath("../../TileManager")
 furniture_handler = NodePath("../Furniture")
 item_handler = NodePath("../Item")
 
